@@ -1,7 +1,11 @@
+import data from './dataset.json'
+
 function component() {
-    const element = document.createElement('div');
-    element.innerHTML = 'Hello World!';
-    return element;
+    data.forEach((datum) => {
+        const element = document.createElement('div');
+        element.innerHTML = datum.title;
+        document.body.appendChild(element)
+    })
 }
 
-document.body.appendChild(component());
+component()
