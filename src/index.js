@@ -1,55 +1,57 @@
 import data from './dataset.json'
+import createAndRenderTableRow from "./components/createAndRenderTableRow";
+import createAndRenderItemDetails from "./components/createAndRenderItemDetails";
 
 class App {
     constructor() {
-        this.selectedTitle = null
-        this.handleItemClick = this.handleItemClick.bind(this);
+        this.showItemDetailsForItemAtIndex = this.showItemDetailsForItemAtIndex.bind(this);
         this.renderItemDetails = this.renderItemDetails.bind(this);
-        this.handleShowTableClick = this.handleShowTableClick.bind(this);
+        this.showTableAndHideItemDetails = this.showTableAndHideItemDetails.bind(this);
+        this.render = this.render.bind(this);
 
         document.getElementById('backToTableButton').onclick = () => {
-            this.handleShowTableClick()
+            this.showTableAndHideItemDetails()
         }
+
+        this.selectedTitle = null
     }
 
-    handleItemClick(selectedTitle) {
+    showItemDetailsForItemAtIndex(selectedTitle) {
         this.selectedTitle = selectedTitle
         this.renderItemDetails()
     }
 
-    handleShowTableClick() {
+    showTableAndHideItemDetails() {
         document.getElementById('detailsWrapper').style.display = 'none';
-        document.getElementById(`dataContainer${this.selectedTitle}`).remove();
+        document.getElementById('dataContainer').remove();
         this.selectedTitle = null;
         document.getElementById('tableWrapper').style.display = 'block';
-    }
-
-    renderTable() {
-        data.forEach((datum, i) => {
-            const element = document.createElement('div');
-            element.id = `${i}Wrapper`
-            document.getElementById('tableWrapper').appendChild(element)
-            const textLink = document.createElement('a')
-            textLink.href = '#'
-            textLink.id = i
-            textLink.innerHTML = datum.title;
-            textLink.onclick = () => {
-                this.handleItemClick(i)
-            }
-            document.getElementById(`${i}Wrapper`).appendChild(textLink);
-        })
     }
 
     renderItemDetails() {
         document.getElementById('tableWrapper').style.display = 'none';
         document.getElementById('detailsWrapper').style.display = 'block';
-        const itemData = data[this.selectedTitle]
-        const dataContainer = document.createElement('div');
-        dataContainer.innerHTML = itemData.title
-        dataContainer.id = `dataContainer${this.selectedTitle}`
-        document.getElementById('detailsWrapper').appendChild(dataContainer)
+        createAndRenderItemDetails(data[this.selectedTitle])
+    }
+
+    renderTable() {
+        data.forEach((datum, i) => {
+            createAndRenderTableRow({
+                data: datum,
+                i,
+                onHandleItemClick: this.showItemDetailsForItemAtIndex
+            })
+        })
+    }
+
+    render() {
+        if (!this.selectedTitle) {
+            this.renderTable()
+        } else {
+            this.renderItemDetails()
+        }
     }
 }
 
 const app = new App()
-app.renderTable()
+app.render()
