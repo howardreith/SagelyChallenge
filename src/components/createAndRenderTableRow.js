@@ -5,6 +5,7 @@ export default function createAndRenderTableRow({ data, i, onHandleItemClick }) 
   const titleText = document.createElement('td');
   titleText.innerHTML = data.title || '(Title Unknown)';
   titleText.id = `title${i}`;
+  titleText.setAttribute('data-testid', `title${i}`);
   document.getElementById(`row${i}`).appendChild(titleText);
 
   const authorText = document.createElement('td');
@@ -29,6 +30,7 @@ export default function createAndRenderTableRow({ data, i, onHandleItemClick }) 
   moreDetailsButton.onclick = () => {
     onHandleItemClick(i);
   };
+  moreDetailsButton.setAttribute('data-testid', `moreDetailsButton${i}`);
   moreDetailsButton.className = 'btn btn-secondary btn-sm';
   moreDetailsButton.innerHTML = 'Details';
   document.getElementById(`moreDetailsBox${i}`).appendChild(moreDetailsButton);
