@@ -13,6 +13,10 @@ class App {
       this.showTableAndHideItemDetails();
     };
 
+    // Allowing nested ternary to allow for effective 1-liner
+    // eslint-disable-next-line no-nested-ternary
+    this.data = [...data].sort((a, b) => (a.title ? b.title
+      ? a.title.localeCompare(b.title) : -1 : 1));
     this.selectedTitle = null;
   }
 
@@ -35,7 +39,7 @@ class App {
   }
 
   renderTable() {
-    data.forEach((datum, i) => {
+    this.data.forEach((datum, i) => {
       createAndRenderTableRow({
         data: datum,
         i,
