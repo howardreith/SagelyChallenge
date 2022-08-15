@@ -17,11 +17,9 @@ at localhost:8080. Alternatively you can simply open `./dist/index.html` in your
 
 ### Data Transformation
 
-This app has already transformed the downloaded contents of dataset.csv into the json file [./src/dataset.json](./src/dataset.json).
-This was achieved by uploading it in https://www.convertcsv.com/csv-to-json.htm
-Essentially, all headings have been turned into keys in objects in an array. If you'd like
-me to describe how I'd do this in a JS script instead, I've added the csv plugin to webpack
-and we can go over an approach in our discussion.
+This app transforms the contents of dataset.csv into a Javascript array of objects.
+This is done automatically when the app starts. There is a clone of the resulting JSON 
+used for tests stored in `./src/utils`. It is not used in the actual app.
 
 ## Architecture Discussion
 

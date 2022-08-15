@@ -1,7 +1,9 @@
-import data from '../dataset.json';
+import dataCsv from '../../dataset.csv';
 import createAndRenderTableRow from './createAndRenderTableRow';
 import createAndRenderItemDetails from './createAndRenderItemDetails';
+import { convertCsvDataToJson } from '../utils/utils';
 
+const data = convertCsvDataToJson(dataCsv);
 // Allowing nested ternary to allow for effective 1-liner
 // eslint-disable-next-line no-nested-ternary
 const sortedData = [...data].sort((a, b) => (a.title ? b.title
