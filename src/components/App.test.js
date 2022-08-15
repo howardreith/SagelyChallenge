@@ -10,6 +10,11 @@ describe('App', () => {
             <div class="container text-center mt-3 mb-3">
                 <h1>Sagely Challenge</h1>
             </div>
+            <div class="container text-center mt-3 mb-3">
+                <label for="searchInput">Search</label>
+                <input id="searchInput" data-testid="searchInput"/>
+                <p>Filter results for value within title, author, tags, or abstract.</p>
+            </div>
             <table id="table" class="table table-bordered">
                 <thead class="thead">
                     <tr id="tableHeaders">
@@ -21,7 +26,7 @@ describe('App', () => {
                 </thead>
             </table>
         </div>
-        <div id="detailsWrapper" data-testid="detailsWrapper" class="container text-center mt-3">
+        <div id="detailsWrapper" data-testid="detailsWrapper" style="display: none" class="container text-center mt-3">
             <button id="backToTableButton" data-testid="backToTableButton" class="btn btn-primary">Back to Table</button>
         </div>
   `;
@@ -72,5 +77,39 @@ describe('App', () => {
     fireEvent.click(screen.getByTestId('backToTableButton'));
     expect(screen.getByText('Sagely Challenge')).toBeVisible();
     expect(screen.queryByText(relevantData.key, { exact: false })).not.toBeInTheDocument();
+  });
+
+  describe('should filter the table', () => {
+    it('by title', () => {
+      subject();
+      fireEvent.change(screen.getByTestId('searchInput'), { target: { value: 'A Leader\'s Guide to Metrics Reviews' } });
+      fireEvent.keyUp(screen.getByTestId('searchInput'));
+      expect(screen.getByText('A Leader\'s Guide to Metrics Reviews')).toBeInTheDocument();
+      expect(screen.queryByText('16 Startup Metrics')).not.toBeInTheDocument();
+    });
+
+    it('by author', () => {
+      subject();
+      fireEvent.change(screen.getByTestId('searchInput'), { target: { value: 'dan Olsen' } });
+      fireEvent.keyUp(screen.getByTestId('searchInput'));
+      expect(screen.getByText('EMPOWERED: Ordinary People, Extraordinary Products by Marty Cagan of SVPG at Lean Product Meetup')).toBeInTheDocument();
+      expect(screen.queryByText('16 Startup Metrics')).not.toBeInTheDocument();
+    });
+
+    it('by abstract note', () => {
+      subject();
+      fireEvent.change(screen.getByTestId('searchInput'), { target: { value: 'Ada and I both had' } });
+      fireEvent.keyUp(screen.getByTestId('searchInput'));
+      expect(screen.getByText('A Leader\'s Guide to Metrics Reviews')).toBeInTheDocument();
+      expect(screen.queryByText('16 Startup Metrics')).not.toBeInTheDocument();
+    });
+
+    it('by tags', () => {
+      subject();
+      fireEvent.change(screen.getByTestId('searchInput'), { target: { value: 'vision' } });
+      fireEvent.keyUp(screen.getByTestId('searchInput'));
+      expect(screen.getByText('Bitcoin: A Peer-to-Peer Electronic Cash System')).toBeInTheDocument();
+      expect(screen.queryByText('16 Startup Metrics')).not.toBeInTheDocument();
+    });
   });
 });
