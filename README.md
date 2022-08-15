@@ -4,9 +4,10 @@
 
 ### Running the App Locally
 
-1. Install dependencies with `npm install`.
-2. Build the project with `npm run build`.
-3. Start the local dev server with `npm run start`. This will open the web page
+1. Clone the repository with `git clone git@github.com:howardreith/SagelyChallenge.git`
+2. Install dependencies with `npm install`.
+3. Build the project with `npm run build`.
+4. Start the local dev server with `npm run start`. This will open the web page
 at localhost:8080. Alternatively you can simply open `./dist/index.html` in your browser.
 
 ### Running Tests
