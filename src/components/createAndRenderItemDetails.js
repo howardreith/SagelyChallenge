@@ -22,24 +22,28 @@ export default function createAndRenderItemDetails(itemData) {
   if (itemData.key) {
     const key = document.createElement('p');
     key.innerHTML = `Key: ${itemData.key}`;
+    key.setAttribute('data-testid', 'key');
     document.getElementById('dataContainer').appendChild(key);
   }
 
   if (itemData.abstractNote) {
     const abstractNote = document.createElement('p');
     abstractNote.innerHTML = `Abstract Note: ${itemData.abstractNote}`;
+    abstractNote.setAttribute('data-testid', 'abstractNote');
     document.getElementById('dataContainer').appendChild(abstractNote);
   }
 
   if (itemData.manualTags) {
     const manualTags = document.createElement('p');
     manualTags.innerHTML = `Tags: ${itemData.manualTags}`;
+    manualTags.setAttribute('data-testid', 'manualTags');
     document.getElementById('dataContainer').appendChild(manualTags);
   }
 
   if (itemData.itemType) {
     const itemType = document.createElement('p');
     itemType.innerHTML = `Media Type: ${itemData.itemType}`;
+    itemType.setAttribute('data-testid', 'itemType');
     document.getElementById('dataContainer').appendChild(itemType);
   }
 

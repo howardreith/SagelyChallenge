@@ -65,5 +65,8 @@ describe('createAndRenderItemDetails', () => {
     expect(screen.getByText('(Unknown)', { exact: false })).toBeInTheDocument();
   });
 
-  // TODO test that remaining absent items are not rendered at all
+  it.each(['key', 'abstractNote', 'manualTags', 'itemType'])('should not render anything for absent date in %s', (key) => {
+    createAndRenderItemDetails({ ...defaultData, [key]: '' });
+    expect(screen.queryByTestId(`${key}`, { exact: false })).not.toBeInTheDocument();
+  });
 });
