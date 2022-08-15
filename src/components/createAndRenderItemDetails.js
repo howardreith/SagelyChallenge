@@ -8,7 +8,7 @@ export default function createAndRenderItemDetails(itemData) {
   document.getElementById('dataContainer').appendChild(title)
 
   const author = document.createElement('h3');
-  author.innerHTML = itemData.author || ('Author Unknown')
+  author.innerHTML = itemData.author || '(Author Unknown)'
   document.getElementById('dataContainer').appendChild(author)
 
   const publicationYear = document.createElement('p');
