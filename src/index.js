@@ -22,6 +22,8 @@ class App {
 
   showItemDetailsForItemAtIndex(selectedTitle) {
     this.selectedTitle = selectedTitle;
+    document.getElementById('tableWrapper').style.display = 'none';
+    document.getElementById('detailsWrapper').style.display = 'block';
     this.renderItemDetails();
   }
 
@@ -33,8 +35,6 @@ class App {
   }
 
   renderItemDetails() {
-    document.getElementById('tableWrapper').style.display = 'none';
-    document.getElementById('detailsWrapper').style.display = 'block';
     createAndRenderItemDetails(data[this.selectedTitle]);
   }
 
@@ -49,11 +49,7 @@ class App {
   }
 
   render() {
-    if (!this.selectedTitle) {
-      this.renderTable();
-    } else {
-      this.renderItemDetails();
-    }
+    this.renderTable();
   }
 }
 
